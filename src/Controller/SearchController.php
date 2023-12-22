@@ -11,13 +11,18 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SearchController extends AbstractController
 {
+
+    /**
+     * 
+     * Search for a user
+     * 
+     */
+
     #[Route('/search', name: 'search')]
     public function index(Request $request, EntityManagerInterface $manager): Response
     {
 
         $query = $request->query->get('q');
-
-        
         $results = $manager->getRepository(User::class)->search($query);
 
         return $this->render('search/index.html.twig', [

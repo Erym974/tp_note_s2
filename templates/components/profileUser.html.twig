@@ -27,7 +27,7 @@
 
 		<div class="mt-2">
 			{% if isFriend %}
-				<a href="{{ path('friend.remove', { user: user.id }) }}" class="btn btn-danger w-100">Remove from friends</a>
+				<a href="{{ path('friends.remove', { user: user.id }) }}" class="btn btn-danger w-100">Remove from friends</a>
 			{% else %}
 				{% if invitation != null %}
 					{% if invitation.emitter == app.user %}

@@ -10,22 +10,13 @@
 				<button class="btn btn-outline-success" type="submit">Search</button>
 			</form>
 			<ul class="navbar-nav ">
+				{% if is_granted('ROLE_MODERATOR') %}
 				<li class="nav-item">
-					<a class="nav-link" aria-current="page" href="#">
-						<i class="bi bi-lightbulb-fill"></i>
+					<a class="nav-link" aria-current="page" href="{{ path('dashboard') }}">
+						<i class="bi bi-back"></i>
 					</a>
 				</li>
-				<li class="nav-item ms-4">
-					<a class="nav-link position-relative" aria-current="page" href="#">
-						<i class="bi bi-bell-fill"></i>
-						{% if true %}
-						<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-							0
-							<span class="visually-hidden">unread messages</span>
-						</span>
-						{% endif %}
-					</a>
-				</li>
+				{% endif %}
 				<li class="nav-item ms-4">
 					<a class="nav-link" aria-current="page" href="{{ path('auth.logout') }}">
 						<i class="bi bi-box-arrow-left"></i>

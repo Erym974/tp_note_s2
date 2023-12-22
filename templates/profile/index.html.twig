@@ -5,6 +5,7 @@
 
 {% block body %}
 	<div class="container my-5">
+		{% include 'components/editPost.html.twig' %}
 		<div class="row">
 			<div class="col-md-3">
 				{% include 'components/profileSidebar.html.twig' %}
@@ -12,10 +13,15 @@
 
 			<div class="col-md-6">
 				{% include 'components/feed.html.twig' %}
+				<div class="d-flex aic jcc my-5">
+					{{ knp_pagination_render(posts, '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig') }}
+				</div>
 			</div>
 
 			<div class="col-md-3">
-				{% include 'components/profileUser.html.twig' with { user: profiled } %}
+				{% if app.user != profiled %}
+					{% include 'components/profileUser.html.twig' with { user: profiled } %}
+				{% endif %}
 			</div>
 		</div>
 	</div>

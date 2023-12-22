@@ -5,6 +5,6 @@
 			<h2 class="h6 m-0">{{ app.user.friends|length }}
 				friends</h2>
 		</div>
-		<i class="bi bi-gear-fill"></i>
+		<a href="{{ path('profile.index', { user: app.user.id }) }}" class="btn text-white">Profile</a>
 	</div>
 </div>

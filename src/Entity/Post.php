@@ -91,7 +91,11 @@ class Post
      */
     public function getComments(): Collection
     {
-        return $this->comments;
+        $iterator = $this->comments->getIterator();
+        $iterator->uasort(function (Comment $a, Comment $b) {
+            return $b->getCreatedAt() <=> $a->getCreatedAt();
+        });
+        return new ArrayCollection(iterator_to_array($iterator));
     }
 
     public function addComment(Comment $comment): static
@@ -222,5 +226,10 @@ class Post
         $this->likes->removeElement($like);
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 }

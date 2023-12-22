@@ -31,8 +31,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToRoute('Go back to the site', 'fa fa-arrow-left', 'home.index');
         yield MenuItem::section('Models');
-        yield MenuItem::linkToCrud('Post', 'fas fa-list', Post::class);
-        yield MenuItem::linkToCrud('Comment', 'fas fa-comments', Comment::class);
+        yield MenuItem::linkToCrud('Post', 'fas fa-list', Post::class)->setPermission('ROLE_MODERATOR');
+        yield MenuItem::linkToCrud('Comment', 'fas fa-comments', Comment::class)->setPermission('ROLE_MODERATOR');
         yield MenuItem::linkToCrud('Users', 'fas fa-users', User::class)->setPermission('ROLE_ADMIN');
     }
 }

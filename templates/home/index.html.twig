@@ -5,22 +5,26 @@
 
 {% block body %}
 	<div class="container my-5">
+		{% include 'components/editPost.html.twig' %}
 		<div class="row">
 			<div class="col-md-3">
 				{% include 'components/profileSidebar.html.twig' %}
 			</div>
 
 			<div class="col-md-6">
-                {% include 'components/newPost.html.twig' %}
-                {% include 'components/feed.html.twig' %}
-            </div>
+				{% include 'components/newPost.html.twig' %}
+				{% include 'components/feed.html.twig' %}
+				<div class="d-flex aic jcc my-5">
+					{{ knp_pagination_render(posts, '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig') }}
+				</div>
+			</div>
 
 			<div class="col-md-3">
-                {% if invitations|length > 0 %}
-                    {% include 'components/InvitationsList.html.twig' %}
-                {% endif %}
-                {% include 'components/friendsList.html.twig' %}
-            </div>
+				{% if invitations|length > 0 %}
+					{% include 'components/InvitationsList.html.twig' %}
+				{% endif %}
+				{% include 'components/friendsList.html.twig' %}
+			</div>
 		</div>
 	</div>
 {% endblock %}

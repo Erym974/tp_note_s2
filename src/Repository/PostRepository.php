@@ -40,8 +40,9 @@ class PostRepository extends ServiceEntityRepository
    public function getUserPost(User $user, User $me): array
    {
        return $this->createQueryBuilder('p')
-           ->andWhere('p.author = :user AND (p.author IN (:friends) OR p.private = false)')
+           ->andWhere('p.author = :user AND (p.author IN (:friends) OR p.private = false OR p.author = :me)')
            ->setParameter('user', $user)
+              ->setParameter('me', $me)
             ->setParameter('friends', $me->getFriends())
            ->orderBy('p.createdAt', 'DESC')
            ->getQuery()

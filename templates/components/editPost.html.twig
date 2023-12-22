@@ -1,0 +1,20 @@
+{% if editForm is not null %}
+	<div class="modal fade show text-dark" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" {{ stimulus_controller('modal') }}>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">Edit my post</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" {{ stimulus_action('modal', 'close') }}></button>
+				</div>
+				<div class="modal-body">
+					{{ form_start(editForm, { 'attr': {'id': 'editPost'} }) }}
+					{{ form_end(editForm) }}
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" {{ stimulus_action('modal', 'close') }}>Close</button>
+					<button type="submit" class="btn btn-primary" form="editPost">Edit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}

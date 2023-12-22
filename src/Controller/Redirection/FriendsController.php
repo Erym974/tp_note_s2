@@ -12,6 +12,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class FriendsController extends AbstractController 
 {
     
+    /**
+     * 
+     * Remove a friend
+     * 
+     */
+
     #[Route(path: '/friends/remove/{user}', name: 'friends.remove')]
     public function remove(User $user, EntityManagerInterface $manager): Response
     {

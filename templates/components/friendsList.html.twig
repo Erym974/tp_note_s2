@@ -5,7 +5,11 @@
 			<hr>
 		{% endif %}
         <div class="friend">
-            <a href="">{{ friend.username }}</a>
+            <a href="{{ path('profile.index', { user: friend.id }) }}" class="btn text-white">{{ friend.username }}</a>
         </div>
     {% endfor %}
+
+    {% if app.user.friends|length == 0 %}
+        <p class="text-center">You have no friends yet.</p>
+    {% endif %}
 </div>

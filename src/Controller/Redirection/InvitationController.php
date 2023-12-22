@@ -14,6 +14,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class InvitationController extends AbstractController
 {
 
+
+    /***
+     * 
+     * Send an invitation to a user
+     * 
+     */
+
     #[Route(path: '/invitation/send/{user}', name: 'invitation.send')]
     public function send(User $user, EntityManagerInterface $manager, InvitationService $invitationService): Response
     {
@@ -47,6 +54,12 @@ class InvitationController extends AbstractController
 
         return $this->redirectToRoute('profile.index', ['user' => $user->getId()]);
     }
+
+    /**
+     * 
+     * Answer to an invitation
+     * 
+     */
 
     #[Route(path: '/invitation/{invitation}/{result}', name: 'redirection.invitation')]
     public function home(Invitation $invitation, string $result, EntityManagerInterface $manager, InvitationService $invitationService, Request $request): Response
