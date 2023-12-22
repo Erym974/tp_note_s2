@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    404 Not Found
+{% endblock %}
+
+{% block body %}
+    <h1>Error 404 - Page not found</h1>
+
+    <p>
+        The requested page was not found.
+        Check that the url is correct or <a href="{{ path('home.index') }}">Go back home</a>.
+    </p>
+{% endblock %}

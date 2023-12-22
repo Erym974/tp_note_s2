@@ -1,0 +1,14 @@
+<div class="box p-4">
+    {% for key, result in results %}
+        {% if key != 0 %}
+        <hr>
+        {% endif %}
+        <div class="result">
+            <a href="{{ path('profile.index', { user: result.id }) }}" class="h5 text-white mb-2">{{ result }}</a>
+            
+        </div>
+    {% endfor %}
+    {% if results|length == 0 %}
+        <p class="text-center">No results found</p>
+    {% endif %}
+</div>

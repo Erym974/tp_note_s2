@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Profile
+{% endblock %}
+
+{% block body %}
+	<div class="container my-5">
+		<div class="row">
+			<div class="col-md-3">
+				{% include 'components/profileSidebar.html.twig' %}
+			</div>
+
+			<div class="col-md-6">
+				{% include 'components/feed.html.twig' %}
+			</div>
+
+			<div class="col-md-3">
+				{% include 'components/profileUser.html.twig' with { user: profiled } %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

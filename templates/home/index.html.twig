@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Home
+{% endblock %}
+
+{% block body %}
+	<div class="container my-5">
+		<div class="row">
+			<div class="col-md-3">
+				{% include 'components/profileSidebar.html.twig' %}
+			</div>
+
+			<div class="col-md-6">
+                {% include 'components/newPost.html.twig' %}
+                {% include 'components/feed.html.twig' %}
+            </div>
+
+			<div class="col-md-3">
+                {% if invitations|length > 0 %}
+                    {% include 'components/InvitationsList.html.twig' %}
+                {% endif %}
+                {% include 'components/friendsList.html.twig' %}
+            </div>
+		</div>
+	</div>
+{% endblock %}

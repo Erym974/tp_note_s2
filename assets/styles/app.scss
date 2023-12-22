@@ -1,0 +1,72 @@
+:root {
+    --background: #333;
+    --background-variant: #212529;
+    --white: #fff;
+}
+
+.aic {
+    align-items: center;
+}
+
+.jcc {
+    justify-content: center;
+}
+
+.jce {
+    justify-content: flex-end;
+}
+
+.jcs {
+    justify-content: flex-start;
+}
+
+.jcb {
+    justify-content: space-between;
+}
+
+body {
+    background: var(--background);
+    color: var(--white);
+}
+
+.box {
+    padding: 10px;
+    border-radius: 8px;
+    background: var(--background-variant);
+    color: var(--white) !important;
+    box-shadow: 5px 5px 5px var(--background-variant);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    main {
+        flex-grow: 1;
+    }
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+#alerts-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+
+    min-width: 25%;
+    max-width: 50%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    overflow: hidden;
+
+    .alert {
+        transition: 2s ease-in-out;
+        width: 100%;
+        margin-bottom: 0;
+    }
+}

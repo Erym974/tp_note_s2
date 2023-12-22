@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    403 Unauthorized
+{% endblock %}
+
+{% block body %}
+    <h1>Erreur 403 - You do not have permission to access this page</h1>
+
+    <p>
+        You do not have permission to access this page
+        <a href="{{ path('home.index') }}">Go back home</a>.
+    </p>
+{% endblock %}

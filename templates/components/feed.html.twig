@@ -1,0 +1,96 @@
+{# {% for post in posts %}
+	<div class="box p-3 mt-3">
+		<div class="post">
+			<div class="post-author">
+				<h2 class="h5 post-author">{{ post.author }}</span>
+				<div class="d-flex aic">
+					{% for category in post.categories %}
+						<span class="badge bg-primary me-2">{{ category }}</span>
+					{% endfor %}
+				</div>
+			</div>
+			<h2 class="text-muted h6">{{ post.title }}</h2>
+			<div class="post-content">
+				{{ post.content }}
+			</div>
+			<hr class="m-0 mt-3">
+			<div class="post-meta mt-1 d-flex aic jcb">
+				<div class="d-flex">
+					<div class="d-flex aic" {{ stimulus_controller('like') }} data-id="{{ post.id }}">
+						<button type="button" class="btn text-white me-2 p-0" {{ stimulus_action('like', 'like') }}>
+							<i data-icon class="bi bi-hand-thumbs-up{{ app.user in post.likes ? " -fill" : " " }}"></i>
+						</button>
+						<span data-like class="post-author">{{ post.likes|length }}
+							like{{ post.likes|length == 0 ? "" : "s" }}</span>
+					</div>
+					<div class="d-flex aic ms-3">
+						<span class="text-white me-2 p-0">
+							<i class="bi bi-chat-right"></i>
+						</span>
+						<span class="post-author">{{ post.comments|length }}
+							comment{{ post.comments|length == 0 ? "" : "s" }}</span>
+					</div>
+				</div>
+				<span class="post-date">{{ post.createdAt|date() }}</span>
+			</div>
+		</div>
+	</div>
+{% endfor %} #}
+
+
+<div class="accordion accordion-flush" id="accordionFlushExample">
+	{% for post in posts %}
+		<div class="box mt-3 accordion-item">
+			<div class="post">
+				<div class="post-author">
+					<a href="{{ path('profile.index', { user: post.author.id }) }}" class="h5 post-author text-white">{{ post.author }}</a>
+					<div class="d-flex aic">
+						{% for category in post.categories %}
+							<span class="badge bg-primary me-2">{{ category }}</span>
+						{% endfor %}
+					</div>
+				</div>
+				<h2 class="text-muted h6">{{ post.title }}</h2>
+				<div class="post-content">
+					{{ post.content }}
+				</div>
+				<hr class="m-0 mt-3">
+				<div class="post-meta mt-1 d-flex aic jcb">
+					<div class="d-flex">
+						<div class="d-flex aic" {{ stimulus_controller('like') }} data-id="{{ post.id }}">
+							<button type="button" class="btn text-white me-2 p-0" {{ stimulus_action('like', 'like') }}>
+								<i data-icon class="bi bi-hand-thumbs-up{{ app.user in post.likes ? " -fill" : " " }}"></i>
+							</button>
+							<span data-like class="post-author">{{ post.likes|length }}
+								like{{ post.likes|length == 0 ? "" : "s" }}</span>
+						</div>
+						<button class="btn text-white collapsed d-flex aic ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{{ post.id }}" aria-expanded="false" aria-controls="flush-collapse-{{ post.id }}">
+							<span class="text-white me-2 p-0">
+								<i class="bi bi-chat-right"></i>
+							</span>
+							<span class="post-author">{{ post.comments|length }}
+								comment{{ post.comments|length == 0 ? "" : "s" }}</span>
+						</button>
+					</div>
+					<span class="post-date">{{ post.createdAt|date() }}</span>
+				</div>
+			</div>
+			<div id="flush-collapse-{{ post.id }}" class="accordion-collapse collapse" aria-labelledby="flush-heading-{{ post.id }}" data-bs-parent="#accordionFlushExample">
+				{% for key, comment in post.comments %}
+					{% if key != 0 %}
+						<hr>
+					{% endif %}
+					<div class="comment p-2 {{ key == 0 ? " mt-3" : " " }}">
+						<div class="comment-content">
+							{{ comment.content }}
+						</div>
+						<div class="comment-meta d-flex aic jcb pt-2">
+							<span class="comment-author">{{ comment.author }}</span>
+							<span class="comment-date">{{ comment.createdAt|date() }}</span>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	{% endfor %}
+</div>

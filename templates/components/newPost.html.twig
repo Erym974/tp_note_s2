@@ -1,0 +1,21 @@
+<div class="box p-3">
+	{{ form_start(form) }}
+	<div class="row">
+		<div class="col-md-7">
+			{{ form_widget(form.title) }}
+		</div>
+		<div class="col-md-5">
+			{{ form_widget(form.categories) }}
+		</div>
+		<div class="col-md-12">
+			{{ form_widget(form.content) }}
+		</div>
+		<div class="col-md-12 mt-2">
+			{{ form_widget(form.private) }}
+		</div>
+	</div>
+	<div class="d-flex aic jce">
+		<button type="submit" class="btn btn-primary">Share</button>
+	</div>
+	{{ form_end(form) }}
+</div>

@@ -1,0 +1,19 @@
+<div class="box p-3 mb-3 sticky-md-top sticky-lg-top sticky-xl-top">
+	<h2>Invitations</h2>
+	{% for key, invitation in invitations %}
+		{% if key != 0 %}
+			<hr>
+		{% endif %}
+		<div class="invitation d-flex aic jcb">
+			<span class="">{{ invitation.emitter }}</span>
+			<div class="d-flex aic jcc">
+				<a href="{{ path('redirection.invitation', { "invitation": invitation.id, "result": "accept" }) }}" class="text-success h4">
+					<i class="bi bi-check2"></i>
+				</a>
+				<a href="{{ path('redirection.invitation', { "invitation": invitation.id, "result": "decline" }) }}" class="text-danger h4">
+					<i class="bi bi-x"></i>
+				</a>
+			</div>
+		</div>
+	{% endfor %}
+</div>
