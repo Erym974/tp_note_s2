@@ -8,10 +8,13 @@
 		{% include 'components/editPost.html.twig' %}
 		<div class="row">
 			<div class="col-md-3">
-				{% include 'components/profileSidebar.html.twig' %}
+				<div class="sticky-md-top sticky-lg-top sticky-xl-top">
+					{% include 'components/profileSidebar.html.twig' %}
+				</div>
 			</div>
 
 			<div class="col-md-6">
+				<h2 class="box mb-3">Feed</h2>
 				{% include 'components/newPost.html.twig' %}
 				{% include 'components/feed.html.twig' %}
 				<div class="d-flex aic jcc my-5">
@@ -20,10 +23,12 @@
 			</div>
 
 			<div class="col-md-3">
-				{% if invitations|length > 0 %}
-					{% include 'components/InvitationsList.html.twig' %}
-				{% endif %}
-				{% include 'components/friendsList.html.twig' %}
+				<div class="sticky-md-top sticky-lg-top sticky-xl-top">
+					{% if invitations|length > 0 %}
+						{% include 'components/InvitationsList.html.twig' %}
+					{% endif %}
+					{% include 'components/friendsList.html.twig' %}
+				</div>
 			</div>
 		</div>
 	</div>

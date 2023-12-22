@@ -4,9 +4,15 @@
 			<div class="post">
 				<div class="post-author">
 					<div class="d-flex aic jcb mb-1">
-						<a href="{{ path('profile.index', { user: post.author.id }) }}" class="h5 post-author text-white">{{ post.author }}</a>
+						<a href="{{ path('profile.index', { user: post.author.id }) }}" class="h5 post-author text-white text-decoration-none">
+							{% if post.private %}
+							<i class="bi bi-unlock-fill me-2" title="Private post"></i>
+							{% else %}
+							<i class="bi bi-globe2 me-2" title="Public post"></i>
+							{% endif %}
+							{{ post.author }}
+						</a>
 						{% if post.author == app.user %}
-
 							<div class="btn-group">
 								<button type="button" class="btn text-white" data-bs-toggle="dropdown" aria-expanded="false">
 									<i class="bi bi-three-dots-vertical"></i>

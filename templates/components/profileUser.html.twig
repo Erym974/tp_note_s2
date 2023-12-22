@@ -1,4 +1,4 @@
-<div class="profile-sidebar box sticky-md-top sticky-lg-top sticky-xl-top">
+<div class="profile-sidebar box">
 	<div class="d-flex jcb">
 		<div class="d-flex flex-column p-2">
 			<h2 class="h6 m-0">{{ user }}</h2>
@@ -10,18 +10,17 @@
 	<div class="d-flex flex-column">
 
 		{% if isFriend %}
-			<span>You're friend with{{ user }}</span>
+			<span>You're friend with <strong>{{ user }}</strong></span>
 		{% else %}
 			{% if invitation != null %}
 				{% if invitation.emitter == app.user %}
-					<span>You sent an invitation to
-						{{ user }}</span>
+					<span>You sent an invitation to {{ user }}</span>
 				{% else %}
 					<span>{{ user }}
 						sent you an invitation</span>
 				{% endif %}
 			{% else %}
-				<span>You're not friend with{{ user }}</span>
+				<span>You're not friend with <strong>{{ user }}</strong></span>
 			{% endif %}
 		{% endif %}
 

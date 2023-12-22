@@ -44,12 +44,21 @@ class AppFixtures extends Fixture
             return ['name' => $categories[$i - 1]];
         });
 
+        /** Admin */
         $admin = UserFactory::createOne([
             'email' => 'admin@admin.fr',
             'password' => 'admin',
             'roles' => ['ROLE_ADMIN']
         ]);
 
+        /** Moderator */
+        $admin = UserFactory::createOne([
+            'email' => 'moderator@moderator.fr',
+            'password' => 'moderator',
+            'roles' => ['ROLE_MODERATOR']
+        ]);
+
+        /** User */
         $user = UserFactory::createOne([
             'email' => 'user@user.fr',
             'password' => 'user'

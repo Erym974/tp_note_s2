@@ -6,7 +6,7 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<form class="d-flex me-auto mb-2 mb-lg-0" method="GET" action="{{ path('search') }}">
-				<input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search">
+				<input class="form-control me-2" type="search" name="q" placeholder="Search" value="{{ app.request.query.get('q') ?? "" }}" aria-label="Search">
 				<button class="btn btn-outline-success" type="submit">Search</button>
 			</form>
 			<ul class="navbar-nav ">

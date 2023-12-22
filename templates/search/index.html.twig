@@ -12,6 +12,9 @@
 
 			<div class="col-md-9">
 				{% include 'components/search.html.twig' %}
+				<div class="d-flex aic jcc my-5">
+					{{ knp_pagination_render(results, '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig') }}
+				</div>
 			</div>
 		</div>
 	</div>

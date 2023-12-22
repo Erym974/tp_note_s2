@@ -8,20 +8,31 @@
 		{% include 'components/editPost.html.twig' %}
 		<div class="row">
 			<div class="col-md-3">
-				{% include 'components/profileSidebar.html.twig' %}
+				<div class="sticky-md-top sticky-lg-top sticky-xl-top">
+					{% include 'components/profileSidebar.html.twig' %}
+				</div>
 			</div>
 
 			<div class="col-md-6">
+				{% if app.user != profiled %}
+					<h2 class="box p-3">Profile of {{ profiled }}</h2>
+				{% else %}
+					<h2 class="box p-3">My profile</h2>
+				{% endif %}
 				{% include 'components/feed.html.twig' %}
 				<div class="d-flex aic jcc my-5">
 					{{ knp_pagination_render(posts, '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig') }}
 				</div>
 			</div>
 
-			<div class="col-md-3">
-				{% if app.user != profiled %}
-					{% include 'components/profileUser.html.twig' with { user: profiled } %}
-				{% endif %}
+			<div class="col-md-3 ">
+				<div class="sticky-md-top sticky-lg-top sticky-xl-top">
+					{% if app.user != profiled %}
+						{% include 'components/profileUser.html.twig' with { user: profiled } %}
+					{% else %}
+						{% include 'components/friendsList.html.twig' %}
+					{% endif %}
+				</div>
 			</div>
 		</div>
 	</div>

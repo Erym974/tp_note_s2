@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,11 +20,14 @@ class SearchController extends AbstractController
      */
 
     #[Route('/search', name: 'search')]
-    public function index(Request $request, EntityManagerInterface $manager): Response
+    public function index(Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator): Response
     {
 
         $query = $request->query->get('q');
         $results = $manager->getRepository(User::class)->search($query);
+
+        $page = $request->query->get('page', 1);
+        $results = $paginator->paginate($results, $page, 10);
 
         return $this->render('search/index.html.twig', [
             'results' => $results,
