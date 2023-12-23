@@ -4,15 +4,19 @@ namespace App\Controller;
 
 use App\Entity\Invitation;
 use App\Entity\Post;
+use App\Entity\Report;
 use App\Entity\User;
 use App\Form\PostType;
+use App\Form\ReportType;
 use App\Service\FormService;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('ROLE_USER')]
 class ProfileController extends AbstractController
 {
 
@@ -39,24 +43,22 @@ class ProfileController extends AbstractController
             ]);
         }
 
-        /** Edit Post form */
-        if($request->query->get('edit')) {
-            $post = $manager->getRepository(Post::class)->find($request->query->get('edit'));
-            if($post && ($post->getAuthor() == $me || $this->isGranted('ROLE_MODERATOR'))) {
-                $editForm = $this->createForm(PostType::class, $post);
-                $editForm->handleRequest($request);
-                $result = $formService->handleEditPost($editForm, $post);
-                if($result) {
-                    $referer = $request->headers->get('referer');
-                    if($referer) {
-                        if(strpos($referer, 'edit')) $referer = substr($referer, 0, strpos($referer, 'edit') - 1);
-                        return $this->redirect($referer);
-                    }
-                    return $this->redirectToRoute('profile.index', [ 'user' => $user->getId(), 'page' => $request->query->get('page', 1)  ]);
-                }
-            }
+        /** New Post form */
+        if($me === $user){
+            $newPostResponse = $formService->handleNewPost();
+            if(isset($newPostResponse['response'])) return $newPostResponse['response'];
+            $newPost = $newPostResponse['form'] ?? null;
         }
 
+        /** Edit Post form */
+        $editResponse = $formService->handleEditPost();
+        if(isset($editResponse['response'])) return $editResponse['response'];
+        $editForm = $editResponse['form'] ?? null;
+
+        /** Report Form */
+        $reportResponse = $formService->handleReportPost();
+        if(isset($reportResponse['response'])) return $reportResponse['response'];
+        $reportForm = $reportResponse['form'] ?? null;
         
         /** New Comment Form */
         $commentResult = $formService->handleNewComment();
@@ -66,8 +68,10 @@ class ProfileController extends AbstractController
             'posts' => $posts,
             'profiled' => $user,
             'isFriend' => $isFriend,
-            'editForm' => isset($editForm) ? $editForm->createView() : null,
-            'invitation' => $invitation ?? null
+            'invitation' => $invitation ?? null,
+            'newPost' => isset($newPost) ? $newPost->createView() : null,
+            'editForm' => $editForm ? $editForm->createView() : null,
+            'reportForm' => $reportForm ? $reportForm->createView() : null,
         ]);
     }
 

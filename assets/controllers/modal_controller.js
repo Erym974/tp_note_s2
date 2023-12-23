@@ -19,9 +19,14 @@ export default class extends Controller {
     }
 
     close() {
-        var url = new URL(window.location.href)
-        url.searchParams.delete('edit')
-        window.location.href = url
+        const query = this.element.dataset.query;
+
+        if(query) {
+            let url = new URL(window.location.href)
+            url.searchParams.delete(query)
+            window.location.href = url
+        }
+
     }
 
 }

@@ -5,9 +5,10 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Invitation;
 use App\Entity\Post;
+use App\Entity\Report;
 use App\Entity\User;
-use App\Form\CommentType;
 use App\Form\PostType;
+use App\Form\ReportType;
 use App\Service\FormService;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -28,35 +29,24 @@ class HomeController extends AbstractController
         /** @var User */
         $user = $this->getUser();
 
-        
-        /** New Post Form */
-        $post = new Post();
-        $form = $this->createForm(PostType::class, $post);
-        $form->handleRequest($request);
-        $result = $formService->handleNewPost($form, $post);
-        if($result) return $this->redirectToRoute('home.index', [ 'page' => $request->query->get('page', 1)  ]);
+        /** New Post form */
+        $newPostResponse = $formService->handleNewPost();
+        if(isset($newPostResponse['response'])) return $newPostResponse['response'];
+        $newPost = $newPostResponse['form'] ?? null;
 
         /** New Comment Form */
         $commentResult = $formService->handleNewComment();
-        if($commentResult) return $this->redirectToRoute('home.index', [ 'page' => $request->query->get('page', 1)  ]);
+        if ($commentResult) return $this->redirectToRoute('home.index', ['page' => $request->query->get('page', 1)]);
 
         /** Edit Post form */
-        if($request->query->get('edit')) {
-            $post = $manager->getRepository(Post::class)->find($request->query->get('edit'));
-            if($post && ($post->getAuthor() == $user || $this->isGranted('ROLE_MODERATOR'))) {
-                $editForm = $this->createForm(PostType::class, $post);
-                $editForm->handleRequest($request);
-                $result = $formService->handleEditPost($editForm, $post);
-                if($result) {
-                    $referer = $request->headers->get('referer');
-                    if($referer) {
-                        if(strpos($referer, 'edit')) if(strpos($referer, 'edit')) $referer = substr($referer, 0, strpos($referer, 'edit') - 1);
-                        return $this->redirect($referer);
-                    }
-                    return $this->redirectToRoute('profile.index', [ 'user' => $user->getId(), 'page' => $request->query->get('page', 1)  ]);
-                }
-            }
-        }
+        $editResponse = $formService->handleEditPost();
+        if(isset($editResponse['response'])) return $editResponse['response'];
+        $editForm = $editResponse['form'] ?? null;
+
+        /** Report Form */
+        $reportResponse = $formService->handleReportPost();
+        if(isset($reportResponse['response'])) return $reportResponse['response'];
+        $reportForm = $reportResponse['form'] ?? null;
 
         /** Get Posts and paginate */
         $posts = $manager->getRepository(Post::class)->getFeed($user);
@@ -66,11 +56,11 @@ class HomeController extends AbstractController
         $invitations = $manager->getRepository(Invitation::class)->getInvitationsOfUser($user);
 
         return $this->render('home/index.html.twig', [
-            'form' => $form->createView(),
             'posts' => $posts,
-            'editForm' => isset($editForm) ? $editForm->createView() : null,
-            'invitations' => $invitations
+            'invitations' => $invitations,
+            'newPost' => $newPost->createView(),
+            'editForm' => $editForm ? $editForm->createView() : null,
+            'reportForm' => $reportForm ? $reportForm->createView() : null,
         ]);
     }
-
 }

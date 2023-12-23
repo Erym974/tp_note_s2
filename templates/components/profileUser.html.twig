@@ -33,7 +33,7 @@
 						<a href="{{ path('redirection.invitation', { "invitation": invitation.id, "result": "decline" }) }}" class="btn btn-danger w-100">Cancel invitation</a>
 					{% else %}
 						<a href="{{ path('redirection.invitation', { "invitation": invitation.id, "result": "accept" }) }}" class="btn btn-success w-100">Accept invitation</a>
-						<a href="{{ path('redirection.invitation', { "invitation": invitation.id, "result": "decline" }) }}" class="btn btn-danger w-100">Refuse invitation</a>
+						<a href="{{ path('redirection.invitation', { "invitation": invitation.id, "result": "decline" }) }}" class="btn btn-danger w-100 mt-2">Decline invitation</a>
 					{% endif %}
 				{% else %}
 					<a href="{{ path('invitation.send', { user: user.id }) }}" class="btn btn-success w-100">Send an invitation</a>

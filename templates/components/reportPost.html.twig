@@ -1,0 +1,20 @@
+{% if reportForm is not null %}
+	<div class="modal fade show text-dark" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" data-query="report" {{ stimulus_controller('modal') }}>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">Report this post</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" {{ stimulus_action('modal', 'close') }}></button>
+				</div>
+				<div class="modal-body">
+					{{ form_start(reportForm, { 'attr': {'id': 'reportForm'} }) }}
+					{{ form_end(reportForm) }}
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" {{ stimulus_action('modal', 'close') }}>Close</button>
+					<button type="submit" class="btn btn-danger" form="reportForm">Report</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}

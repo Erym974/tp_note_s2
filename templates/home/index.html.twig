@@ -6,6 +6,7 @@
 {% block body %}
 	<div class="container my-5">
 		{% include 'components/editPost.html.twig' %}
+		{% include 'components/reportPost.html.twig' %}
 		<div class="row">
 			<div class="col-md-3">
 				<div class="sticky-md-top sticky-lg-top sticky-xl-top">
@@ -15,7 +16,7 @@
 
 			<div class="col-md-6">
 				<h2 class="box mb-3">Feed</h2>
-				{% include 'components/newPost.html.twig' %}
+				{% include 'components/newPost.html.twig' with { form: newPost } %}
 				{% include 'components/feed.html.twig' %}
 				<div class="d-flex aic jcc my-5">
 					{{ knp_pagination_render(posts, '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig') }}

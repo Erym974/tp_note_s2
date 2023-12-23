@@ -3,6 +3,8 @@
 namespace App\Controller\Dashboard\Crud;
 
 use App\Entity\Comment;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -18,6 +20,13 @@ class CommentCrudController extends AbstractCrudController
     public static function getEntityFqcn(): string
     {
         return Comment::class;
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)
+            ->remove(Crud::PAGE_INDEX, Action::NEW);
     }
 
     public function configureCrud(Crud $crud) : Crud
@@ -37,15 +46,15 @@ class CommentCrudController extends AbstractCrudController
             ->add('author')
         ;
     }
-
     
     public function configureFields(string $pageName): iterable
     {
         return [
             IdField::new('id')->onlyOnIndex(),
-            TextareaField::new('content'),
             AssociationField::new('author')->setDisabled(true),
             AssociationField::new('post')->setDisabled(true),
+            TextEditorField::new('content')->onlyOnIndex(),
+            TextareaField::new('content')->hideOnIndex(),
             AssociationField::new('reply')->setDisabled(true),
             DateTimeField::new('createdAt')->onlyOnIndex(),
         ];

@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\CommentRepository;
+use App\Repository\ReportRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CommentRepository::class)]
-class Comment
+#[ORM\Entity(repositoryClass: ReportRepository::class)]
+class Report
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -14,22 +15,18 @@ class Comment
     private ?int $id = null;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $author = null;
 
-    #[ORM\ManyToOne(inversedBy: 'comments')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(inversedBy: 'reports')]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Post $post = null;
 
-    #[ORM\ManyToOne(targetEntity: self::class)]
-    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
-    private ?self $reply = null;
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $reason = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $content = null;
 
     public function __construct()
     {
@@ -65,6 +62,18 @@ class Comment
         return $this;
     }
 
+    public function getReason(): ?string
+    {
+        return $this->reason;
+    }
+
+    public function setReason(string $reason): static
+    {
+        $this->reason = $reason;
+
+        return $this;
+    }
+
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
@@ -77,32 +86,8 @@ class Comment
         return $this;
     }
 
-    public function getReply(): ?self
-    {
-        return $this->reply;
-    }
-
-    public function setReply(?self $reply): static
-    {
-        $this->reply = $reply;
-
-        return $this;
-    }
-
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
-
-    public function setContent(string $content): static
-    {
-        $this->content = $content;
-
-        return $this;
-    }
-
     public function __toString(): string
     {
-        return $this->id;
+        return $this->getId();
     }
 }

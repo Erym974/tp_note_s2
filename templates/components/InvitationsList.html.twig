@@ -5,7 +5,7 @@
 			<hr>
 		{% endif %}
 		<div class="invitation d-flex aic jcb">
-			<span class="">{{ invitation.emitter }}</span>
+			<a href="{{ path('profile.index', { user: invitation.emitter.id }) }}" class="btn text-white">{{ invitation.emitter }}</a>
 			<div class="d-flex aic jcc">
 				<a href="{{ path('redirection.invitation', { "invitation": invitation.id, "result": "accept" }) }}" class="text-success h4">
 					<i class="bi bi-check2"></i>

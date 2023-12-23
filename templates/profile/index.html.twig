@@ -5,6 +5,7 @@
 
 {% block body %}
 	<div class="container my-5">
+		{% include 'components/reportPost.html.twig' %}
 		{% include 'components/editPost.html.twig' %}
 		<div class="row">
 			<div class="col-md-3">
@@ -18,6 +19,7 @@
 					<h2 class="box p-3">Profile of {{ profiled }}</h2>
 				{% else %}
 					<h2 class="box p-3">My profile</h2>
+					{% include 'components/newPost.html.twig' with { form: newPost } %}
 				{% endif %}
 				{% include 'components/feed.html.twig' %}
 				<div class="d-flex aic jcc my-5">
